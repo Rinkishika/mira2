@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Google Sign-In Client ID -->
+    <meta name="google-signin-client_id" content="740508128020-ffqgurvdrj7lktgkhchc6fmhlgnkhrgi.apps.googleusercontent.com">
+    <!-- Google Sign-In JavaScript -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function handleCredentialResponse(response) {
+            // Decode the ID token
+            const data = JSON.parse(atob(response.credential.split('.')[1]));
+            console.log("User ID: " + data.sub);
+            console.log("User Full Name: " + data.name);
+            console.log("User Email: " + data.email);
+
+            // Redirect to home page after successful login
+            window.location.href = "https://rinkishika.github.io/Personal-Website/";
+        }
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: '740508128020-ffqgurvdrj7lktgkhchc6fmhlgnkhrgi.apps.googleusercontent.com',
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("google-signin-button"),
+                { theme: "outline", size: "large" }  // Customize the button
+            );
+        }
+    </script>
+</head>
+<body>
+    <div id="google-signin-button"></div>
+</body>
+</html>
